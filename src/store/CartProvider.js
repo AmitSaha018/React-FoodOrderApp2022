@@ -1,4 +1,4 @@
-import { useReducer } from "react/cjs/react.production.min";
+import { useReducer } from "react";
 import CartContext from "./cart-context";
 
 const defaultCartState = {
@@ -9,8 +9,8 @@ const defaultCartState = {
 const cartReducer = (state, action) => {
 
     if (action.type === 'ADD') {
-        const updatedItems = state.items.contact(action.item);
-        //conatact does not change the array but returns a new array
+        const updatedItems = state.items.concat(action.item);
+        //conacat does not change the array but returns a new array
         const updatedTotalAmount = state.totalAmount + action.item.price * action.item.amount;
         return {
             items: updatedItems,
