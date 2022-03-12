@@ -5,6 +5,7 @@ import Classes from "./AvailableMeals.module.css";
 
 const AvailableMeals = () => {
   const [meals, setMeals] = useState([]);
+  const [isloading, setIsLoading] = useState(true);
   useEffect(() => {
     const fetchMeals = async () => {
       const response = await fetch('https://reactfoodorderapp2022-f43de-default-rtdb.firebaseio.com/meals.json');
@@ -21,9 +22,16 @@ const AvailableMeals = () => {
         });
       }
       setMeals(loadedMeals);
+      setIsLoading(false)
     }
     fetchMeals();
   }, []);
+
+  if (isloading) {
+    return <section className={Classes.MealsLoading}>
+    <p>Loading...</p>
+  </section>
+  }
 
   const mealsList = meals.map((meal) => (
     <MealItem
